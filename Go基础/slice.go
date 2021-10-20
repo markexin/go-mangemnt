@@ -3,7 +3,6 @@ package main
 import "fmt"
 
 func main() {
-
 	// 定义数组
 	a := [3]int{1, 2, 3}
 	fmt.Println(a)
