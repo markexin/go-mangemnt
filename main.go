@@ -16,6 +16,7 @@ func main() {
 	// gin.Context，封装了request和response
 	r.POST(PREFIX+"/login", routes.Login)
 	r.GET(PREFIX+"/products", routes.GetProducts)
+	r.GET(PREFIX+"/navs", routes.GetNavs)
 	// 3.监听端口，默认在8080
 	// Run("里面不指定端口号默认为8080")
 	r.Run(":8001")
