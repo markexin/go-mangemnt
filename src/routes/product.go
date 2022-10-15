@@ -59,3 +59,12 @@ func GetNavs(c *gin.Context) {
 		"data": slice,
 	})
 }
+
+// 获取点赞数量
+func GetLikes(c *gin.Context) {
+	c.SecureJSON(http.StatusOK, gin.H{
+		"code": http.StatusOK,
+		"msg":  "success",
+		"data": 20,
+	})
+}
