@@ -1,6 +1,9 @@
 package routes
 
 import (
+	"context"
+	"go-learn/src/model"
+	"go-learn/src/utils"
 	"math/rand"
 	"net/http"
 
@@ -17,6 +20,41 @@ type GetProductsType struct {
 type RoutesType struct {
 	Name string
 	Path string
+}
+
+// 新增商品
+func PostProducts(c *gin.Context) {
+	// params
+	desc := c.PostForm("desc")
+	name := c.PostForm("name")
+	prize := c.DefaultPostForm("prize", "0")
+
+	if name == "" {
+		c.SecureJSON(http.StatusBadRequest, gin.H{
+			"code": http.StatusBadRequest,
+			"msg":  "fail",
+			"data": "name 不能为空",
+		})
+		return
+	}
+
+	var (
+		products model.ProductInfo
+	)
+
+	collection := *utils.MongoDb()
+
+	products.Desc = desc
+	products.Prize = prize
+	products.ProductName = name
+
+	res, _ := collection.InsertOne(context.TODO(), products)
+
+	c.SecureJSON(http.StatusOK, gin.H{
+		"code": http.StatusOK,
+		"msg":  "success",
+		"data": res,
+	})
 }
 
 // 获取商品信息
