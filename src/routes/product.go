@@ -15,6 +15,7 @@ type GetProductsType struct {
 	Name       string
 	Desc       string
 	CreateTime string
+	Likes      int
 }
 
 type RoutesType struct {
@@ -66,7 +67,9 @@ func GetProducts(c *gin.Context) {
 	for _, v := range sale {
 		var products GetProductsType
 		products.Name = v
+		products.Likes = rand.Intn(1000)
 		products.Prize = rand.Intn(100)
+
 		products.Desc = "测试商品"
 		slice = append(slice, products)
 	}
@@ -103,6 +106,6 @@ func GetLikes(c *gin.Context) {
 	c.SecureJSON(http.StatusOK, gin.H{
 		"code": http.StatusOK,
 		"msg":  "success",
-		"data": 20,
+		"data": true,
 	})
 }
